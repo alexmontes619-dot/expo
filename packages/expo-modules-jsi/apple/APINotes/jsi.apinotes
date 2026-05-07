@@ -14,3 +14,11 @@ Namespaces:
       SwiftImportAs: reference
       SwiftReleaseOp: immortal
       SwiftRetainOp: immortal
+    # IRuntime is the abstract base introduced in RN 0.86. Most JSI value/string/
+    # property methods now take IRuntime&; without this entry Swift refuses to
+    # import IRuntime because the type is abstract (and pre-RN-fix, because its
+    # destructor was protected).
+    - Name: IRuntime
+      SwiftImportAs: reference
+      SwiftReleaseOp: immortal
+      SwiftRetainOp: immortal
