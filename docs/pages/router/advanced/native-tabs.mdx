@@ -945,17 +945,13 @@ const styles = StyleSheet.create({
 
 ### Disabling keyboard avoidance on Android
 
-By default, when the keyboard is displayed on Android, the native tabs automatically adjust to avoid being obscured. You can disable this behavior by changing the [`android.softwareKeyboardLayoutMode`](/versions/latest/config/app/#softwarekeyboardlayoutmode) property to `pan` in your app config file:
+By default the native tab bar is lifted above the keyboard on Android. To have the keyboard overlay the tab bar instead, pass `ignoreImeInsets`:
 
-```json app.json
-{
-  "expo": {
-    "android": {
-      "softwareKeyboardLayoutMode": "pan"
-    }
-  }
-}
+```tsx
+<NativeTabs ignoreImeInsets>{/* triggers */}</NativeTabs>
 ```
+
+> Requires `windowSoftInputMode="adjustResize"` (Expo default) and Android API 30+. Toggling while the keyboard is open has no immediate effect.
 
 ### Safe area handling
 

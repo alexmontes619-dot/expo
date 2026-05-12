@@ -218,6 +218,15 @@ export interface NativeTabsProps extends PropsWithChildren {
      */
     badgeTextColor?: ColorValue;
     /**
+     * When `true`, the tab bar ignores the soft keyboard inset and stays behind the keyboard.
+     *
+     * Requires `windowSoftInputMode="adjustResize"`. No effect on Android API < 30.
+     *
+     * @default false
+     * @platform android
+     */
+    ignoreImeInsets?: boolean;
+    /**
      * Listeners for navigation events on all tabs.
      *
      * Supported events:
