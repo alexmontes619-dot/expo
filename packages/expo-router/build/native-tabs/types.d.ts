@@ -47,6 +47,7 @@ export interface NativeTabOptions extends DefaultRouterOptions {
     };
     indicatorColor?: ColorValue;
     hidden?: boolean;
+    preventSelection?: boolean;
     specialEffects?: TabsScreenProps['specialEffects'];
     nativeProps?: NativeScreenProps;
     disableAutomaticContentInsets?: boolean;
@@ -343,6 +344,21 @@ export interface NativeTabTriggerProps {
      * @platform iOS
      */
     disableScrollToTop?: boolean;
+    /**
+     * If `true`, native tab selection for this screen is prevented — tapping the
+     * tab in the tab bar will not change the focused tab.
+     *
+     * Can be set in the `_layout` file or dynamically from inside a screen.
+     *
+     * > **Note:** Unlike `hidden`, the tab remains visible in the tab bar. Only
+     * > the native focus change is suppressed.
+     *
+     * @default false
+     *
+     * @platform android
+     * @platform ios
+     */
+    preventSelection?: boolean;
     /**
      * The children of the trigger.
      *

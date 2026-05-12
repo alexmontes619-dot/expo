@@ -126,6 +126,43 @@ it('when no options are passed, default ones are used', () => {
   } as TabsScreenProps);
 });
 
+describe('preventSelection', () => {
+  it.each([true, false] as const)(
+    'forwards preventSelection=%p to Tabs.Screen as preventNativeSelection',
+    (value) => {
+      renderRouter({
+        _layout: () => (
+          <NativeTabs>
+            <NativeTabs.Trigger name="index" preventSelection={value} />
+          </NativeTabs>
+        ),
+        index: () => <View testID="index" />,
+      });
+
+      expect(screen.getByTestId('index')).toBeVisible();
+      expect(TabsScreen).toHaveBeenCalled();
+      expect(TabsScreen.mock.calls.at(-1)![0]).toMatchObject({
+        preventNativeSelection: value,
+      } as TabsScreenProps);
+    }
+  );
+
+  it('does not forward preventNativeSelection when preventSelection is not set', () => {
+    renderRouter({
+      _layout: () => (
+        <NativeTabs>
+          <NativeTabs.Trigger name="index" />
+        </NativeTabs>
+      ),
+      index: () => <View testID="index" />,
+    });
+
+    expect(screen.getByTestId('index')).toBeVisible();
+    expect(TabsScreen).toHaveBeenCalled();
+    expect(TabsScreen.mock.calls.at(-1)![0].preventNativeSelection).toBeUndefined();
+  });
+});
+
 describe('Icons', () => {
   let consoleWarnMock: jest.Mock;
   beforeEach(() => {

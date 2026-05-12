@@ -892,6 +892,105 @@ describe('Tab options', () => {
       expect(call.tabs[1]!.options.disableTransparentOnScrollEdge).toBe(false);
     });
   });
+
+  describe('preventSelection', () => {
+    it.each([true, false] as const)(
+      'When preventSelection is %p on a layout trigger, passes it down',
+      (value) => {
+        renderRouter({
+          _layout: () => (
+            <NativeTabs>
+              <NativeTabs.Trigger name="index" preventSelection={value} />
+            </NativeTabs>
+          ),
+          index: () => <View testID="index" />,
+        });
+
+        expect(screen.getByTestId('index')).toBeVisible();
+        expect(NativeTabsView).toHaveBeenCalledTimes(1);
+        const call = NativeTabsView.mock.calls[0]![0];
+        expect(call.tabs[0]!.options.preventSelection).toBe(value);
+      }
+    );
+
+    it('When preventSelection is not set on trigger, it stays undefined in options', () => {
+      renderRouter({
+        _layout: () => (
+          <NativeTabs>
+            <NativeTabs.Trigger name="index" />
+          </NativeTabs>
+        ),
+        index: () => <View testID="index" />,
+      });
+
+      expect(screen.getByTestId('index')).toBeVisible();
+      expect(NativeTabsView).toHaveBeenCalledTimes(1);
+      const call = NativeTabsView.mock.calls[0]![0];
+      expect(call.tabs[0]!.options.preventSelection).toBeUndefined();
+    });
+
+    it('Screen-mode trigger can set preventSelection dynamically', () => {
+      renderRouter({
+        _layout: () => (
+          <NativeTabs>
+            <NativeTabs.Trigger name="index" />
+          </NativeTabs>
+        ),
+        index: () => (
+          <View testID="index">
+            <NativeTabs.Trigger name="index" preventSelection />
+          </View>
+        ),
+      });
+
+      expect(screen.getByTestId('index')).toBeVisible();
+      // Two renders: initial layout, then update after the screen mounts and calls setOptions
+      expect(NativeTabsView).toHaveBeenCalledTimes(2);
+      const initial = NativeTabsView.mock.calls[0]![0];
+      const afterFocus = NativeTabsView.mock.calls[1]![0];
+      expect(initial.tabs[0]!.options.preventSelection).toBeUndefined();
+      expect(afterFocus.tabs[0]!.options.preventSelection).toBe(true);
+    });
+
+    it('Screen-mode trigger that omits preventSelection does not clobber the layout value', () => {
+      renderRouter({
+        _layout: () => (
+          <NativeTabs>
+            <NativeTabs.Trigger name="index" preventSelection />
+          </NativeTabs>
+        ),
+        index: () => (
+          <View testID="index">
+            <NativeTabs.Trigger name="index" />
+          </View>
+        ),
+      });
+
+      expect(screen.getByTestId('index')).toBeVisible();
+      // The layout value must survive the screen-mode setOptions call.
+      const lastCall = NativeTabsView.mock.calls.at(-1)![0];
+      expect(lastCall.tabs[0]!.options.preventSelection).toBe(true);
+    });
+
+    it('Screen-mode preventSelection={false} overrides a layout preventSelection={true}', () => {
+      renderRouter({
+        _layout: () => (
+          <NativeTabs>
+            <NativeTabs.Trigger name="index" preventSelection />
+          </NativeTabs>
+        ),
+        index: () => (
+          <View testID="index">
+            <NativeTabs.Trigger name="index" preventSelection={false} />
+          </View>
+        ),
+      });
+
+      expect(screen.getByTestId('index')).toBeVisible();
+      const lastCall = NativeTabsView.mock.calls.at(-1)![0];
+      expect(lastCall.tabs[0]!.options.preventSelection).toBe(false);
+    });
+  });
 });
 
 describe('Dynamic options', () => {
