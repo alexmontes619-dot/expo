@@ -1,15 +1,3 @@
-diff --git a/ReactCommon/jsi/jsi/jsi.h b/ReactCommon/jsi/jsi/jsi.h
-index bf98028fb3fb4ffbb141fd5542a5238762ca2a5a..db70e1b3e3303bf74ac278cd63808d60ca40c61e 100644
---- a/ReactCommon/jsi/jsi/jsi.h
-+++ b/ReactCommon/jsi/jsi/jsi.h
-@@ -680,7 +680,6 @@ class JSI_EXPORT IRuntime : public ICast {
-   /// property of a JS string.
-   virtual size_t length(const String& str) = 0;
- 
-- protected:
-   virtual ~IRuntime() = default;
- };
- 
 diff --git a/scripts/codegen/generate-artifacts-executor/generateReactCodegenPodspec.js b/scripts/codegen/generate-artifacts-executor/generateReactCodegenPodspec.js
 index 70221d3c988a08e474941a32fcdbbb5f5ab32e26..00e0da3d96df591faafac743fcd693f6d9b5efec 100644
 --- a/scripts/codegen/generate-artifacts-executor/generateReactCodegenPodspec.js
