@@ -7,6 +7,8 @@
 ### 🎉 New features
 
 - Added `@expo/ui/community/slider`, a drop-in replacement for `@react-native-community/slider`. ([#45623](https://github.com/expo/expo/pull/45623) by [@nishan](https://github.com/intergalacticspacehighway))
+- Added `@expo/ui/community/menu`, a drop-in replacement for `@react-native-menu/menu`. ([#45670](https://github.com/expo/expo/pull/45670) by [@vonovak](https://github.com/vonovak))
+- [android] Added Compose `combinedClickable` modifier and `role: 'destructive'` on `DropdownMenuItem`. ([#45670](https://github.com/expo/expo/pull/45670) by [@vonovak](https://github.com/vonovak))
 
 ### 🐛 Bug fixes
 

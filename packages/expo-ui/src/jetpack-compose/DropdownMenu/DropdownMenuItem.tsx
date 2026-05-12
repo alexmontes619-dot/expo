@@ -38,6 +38,14 @@ export type DropdownMenuItemProps = {
    */
   enabled?: boolean;
   /**
+   * Visual role of the menu item.
+   * `'destructive'` renders the text in `MaterialTheme.colorScheme.error`.
+   * Leading icons are also tinted, but only when no `tint` is set on the `Icon`.
+   * `elementColors` overrides still take precedence.
+   * @default 'default'
+   */
+  role?: 'default' | 'destructive';
+  /**
    * Color overrides for the menu item.
    */
   elementColors?: DropdownMenuItemElementColors;

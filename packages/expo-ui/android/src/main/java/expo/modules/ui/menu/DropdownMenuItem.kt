@@ -2,10 +2,12 @@ package expo.modules.ui.menu
 
 import android.graphics.Color
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.runtime.Composable
 import expo.modules.kotlin.records.Field
 import expo.modules.kotlin.records.Record
+import expo.modules.kotlin.types.Enumerable
 import expo.modules.kotlin.types.OptimizedRecord
 import expo.modules.kotlin.views.ComposeProps
 import expo.modules.ui.UIComposableScope
@@ -31,9 +33,15 @@ class DropdownMenuItemColors : Record {
   @Field val disabledTrailingIconColor: Color? = null
 }
 
+enum class DropdownMenuItemRole(val value: String) : Enumerable {
+  DEFAULT("default"),
+  DESTRUCTIVE("destructive")
+}
+
 @OptimizedComposeProps
 data class DropdownMenuItemProps(
   val enabled: Boolean = true,
+  val role: DropdownMenuItemRole = DropdownMenuItemRole.DEFAULT,
   val elementColors: DropdownMenuItemColors = DropdownMenuItemColors(),
   val modifiers: ModifierList = emptyList()
 ) : ComposeProps
@@ -49,14 +57,18 @@ fun FunctionalComposableScope.DropdownMenuItemContent(
 
   val colors = props.elementColors
   val defaultColors = MenuDefaults.itemColors()
+  val isDestructive = props.role == DropdownMenuItemRole.DESTRUCTIVE
+  val errorColor = MaterialTheme.colorScheme.error
+  val baseTextColor = if (isDestructive) errorColor else defaultColors.textColor
+  val baseLeadingIconColor = if (isDestructive) errorColor else defaultColors.leadingIconColor
 
   DropdownMenuItem(
     text = { textSlotView?.let { with(UIComposableScope()) { with(it) { Content() } } } ?: Unit },
     enabled = props.enabled,
     modifier = ModifierRegistry.applyModifiers(props.modifiers, appContext, composableScope, globalEventDispatcher),
     colors = MenuDefaults.itemColors(
-      textColor = colors.textColor.composeOrNull ?: defaultColors.textColor,
-      leadingIconColor = colors.leadingIconColor.composeOrNull ?: defaultColors.leadingIconColor,
+      textColor = colors.textColor.composeOrNull ?: baseTextColor,
+      leadingIconColor = colors.leadingIconColor.composeOrNull ?: baseLeadingIconColor,
       trailingIconColor = colors.trailingIconColor.composeOrNull ?: defaultColors.trailingIconColor,
       disabledTextColor = colors.disabledTextColor.composeOrNull ?: defaultColors.disabledTextColor,
       disabledLeadingIconColor = colors.disabledLeadingIconColor.composeOrNull ?: defaultColors.disabledLeadingIconColor,
