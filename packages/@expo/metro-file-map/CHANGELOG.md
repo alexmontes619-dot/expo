@@ -8,6 +8,8 @@
 
 ### 🐛 Bug fixes
 
+- Fork disk cache binary file for Bun ([#45677](https://github.com/expo/expo/pull/45677) by [@kitten](https://github.com/kitten))
+
 ### 💡 Others
 
 ## 56.0.1 — 2026-05-11
