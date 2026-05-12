@@ -10,6 +10,8 @@
 
 ### 💡 Others
 
+- [Internal] Thread `https` protocol state through from from `runServer-fork` ([#45676](https://github.com/expo/expo/pull/45676) by [@kitten](https://github.com/kitten))
+
 ## 56.1.2 — 2026-05-12
 
 _This version does not introduce any user-facing changes._
