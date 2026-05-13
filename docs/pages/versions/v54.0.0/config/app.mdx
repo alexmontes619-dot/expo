@@ -1,24 +1,66 @@
----
-title: app.json / app.config.js
-description: A reference of available properties in Expo app config.
-maxHeadingDepth: 5
----
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-import { BookOpen02Icon } from '@expo/styleguide-icons/outline/BookOpen02Icon';
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Landscape / Irrigation Checklist</Text>
 
-import schema from '~/public/static/schemas/v54.0.0/app-config-schema.json';
-import AppConfigSchemaTable from '~/ui/components/AppConfigSchemaTable';
-import { BoxLink } from '~/ui/components/BoxLink';
+      <Text style={styles.subtitle}>Sistema de trabajo diario</Text>
 
-The following is a list of properties that are available for you under the `"expo"` key in **app.json** or **app.config.json**. These properties can be passed to the top level object of **app.config.js** or **app.config.ts**.
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Crear nueva tarea</Text>
+      </TouchableOpacity>
 
-<BoxLink
-  title="Configuration with app config"
-  description="For information on app configuration, the differences between various app config files, and how to use them dynamically."
-  href="/workflow/configuration/"
-  Icon={BookOpen02Icon}
-/>
+      <TouchableOpacity style={styles.buttonSecondary}>
+        <Text style={styles.buttonSecondaryText}>Ver checklist</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
-## Properties
-
-<AppConfigSchemaTable schema={schema} />
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: "center",
+    backgroundColor: "#f4f7f2",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#1f3d2b",
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 16,
+    marginBottom: 30,
+    color: "#4b604f",
+    textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#2f6b3f",
+    padding: 16,
+    borderRadius: 14,
+    marginBottom: 14,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 17,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  buttonSecondary: {
+    borderWidth: 2,
+    borderColor: "#2f6b3f",
+    padding: 16,
+    borderRadius: 14,
+  },
+  buttonSecondaryText: {
+    color: "#2f6b3f",
+    fontSize: 17,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
